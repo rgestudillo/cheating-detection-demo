@@ -10,6 +10,7 @@ import FeatureTracker from '@/components/FeatureTracker'
 import FeatureDisplay from '@/components/FeatureDisplay'
 import QuizNavigation from '@/components/QuizNavigation'
 import ResultsModal from '@/components/ResultsModal'
+import WebcamComponent from '@/components/WebcamComponent'
 
 export default function Home() {
   const [quizStarted, setQuizStarted] = useState(false)
@@ -26,6 +27,7 @@ export default function Home() {
   })
   const [showResults, setShowResults] = useState(false)
   const [results, setResults] = useState<{ score: number; prediction: number } | null>(null)
+  const [isWebcamEnabled, setIsWebcamEnabled] = useState(false)
 
   const startQuiz = () => {
     setQuizStarted(true)
@@ -104,9 +106,16 @@ export default function Home() {
               <p className="text-lg text-gray-600 mb-8 max-w-md">
                 This quiz will test your knowledge while our advanced system monitors for any potential irregularities.
               </p>
+              {!isWebcamEnabled && (
+                <p className="text-red-500 mb-4">
+                  Please enable your webcam to start the quiz
+                </p>
+              )}
               <button
                 onClick={startQuiz}
-                className="btn btn-primary text-lg px-8 py-3"
+                disabled={!isWebcamEnabled}
+                className={`btn btn-primary text-lg px-8 py-3 ${!isWebcamEnabled ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
               >
                 Start Quiz
               </button>
@@ -140,6 +149,7 @@ export default function Home() {
           )}
         </div>
       </main>
+      <WebcamComponent onWebcamStatus={setIsWebcamEnabled} />
       <Footer />
     </div>
   )
