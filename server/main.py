@@ -14,9 +14,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Training data and labels (use the same data from your notebook)
-X_train = np.load("X_train.npy")  # Load your pre-saved training data
-y_train = np.load("y_train.npy")  # Load your pre-saved training labels
+# Training data and labels
+X_train = np.load("X_train.npy")  # Pre-saved training data
+y_train = np.load("y_train.npy")  # Pre-saved training labels
 k = 5  # Number of neighbors
 
 # Define distance functions
@@ -61,8 +61,12 @@ class QuizData(BaseModel):
     features: Features
     userAnswers: list[str]
 
-# Mocked quiz answers for scoring (replace with actual answers in a real scenario)
-correct_answers = ["c", "b", "c", "d", "c"]
+# quiz answers
+correct_answers = [
+  "b", "b", "a", "b", "a", "b", "c", "b", "c", "d", 
+  "a", "b", "b", "b", "d", "a", "b", "b", "c", "a", 
+  "c", "b", "d", "a", "a"
+]
 
 @app.post("/analyze")
 async def analyze_quiz(data: QuizData):
