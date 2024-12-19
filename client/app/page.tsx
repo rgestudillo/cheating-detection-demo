@@ -11,6 +11,7 @@ import FeatureDisplay from '@/components/FeatureDisplay'
 import QuizNavigation from '@/components/QuizNavigation'
 import ResultsModal from '@/components/ResultsModal'
 import WebcamComponent from '@/components/WebcamComponent'
+import StartingModal from '@/components/StartingModal'
 
 export default function Home() {
   const [quizStarted, setQuizStarted] = useState(false)
@@ -29,6 +30,7 @@ export default function Home() {
   const [results, setResults] = useState<{ score: number; prediction: number } | null>(null)
   const [isWebcamEnabled, setIsWebcamEnabled] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showStartModal, setShowStartModal] = useState(true)
 
   const startQuiz = () => {
     setQuizStarted(true)
@@ -103,6 +105,10 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <StartingModal
+        isOpen={showStartModal}
+        onClose={() => setShowStartModal(false)}
+      />
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-8">
           {!quizStarted ? (
