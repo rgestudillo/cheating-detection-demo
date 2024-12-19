@@ -5,11 +5,11 @@ export default function Header() {
     <header className="bg-white shadow-md">
       <div className="container mx-auto px-4 py-6 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Exam Integrity Monitor</h1>
-          <p className="text-gray-600 mt-2">Advanced Cheating Detection System</p>
+          <h1 className="text-3xl font-bold text-gray-800">Online Cheating Detection Model</h1>
+          <p className="text-gray-600 mt-2">Using K-Nearest Neighbors (KNN) Algorithm </p>
         </div>
         <a
-          href="https://github.com/yourusername/exam-integrity-monitor"
+          href="https://github.com/rgestudillo/cheating-detection-demo/"
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-primary flex items-center space-x-2"

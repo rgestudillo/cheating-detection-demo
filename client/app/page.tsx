@@ -149,7 +149,12 @@ export default function Home() {
           )}
         </div>
       </main>
-      <WebcamComponent onWebcamStatus={setIsWebcamEnabled} />
+      <WebcamComponent
+        onWebcamStatus={setIsWebcamEnabled}
+        onProximityUpdate={(maxFaces) =>
+          setFeatures(prev => ({ ...prev, proximityAlerts: maxFaces }))
+        }
+      />
       <Footer />
     </div>
   )
