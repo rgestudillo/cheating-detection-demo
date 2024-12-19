@@ -1,12 +1,30 @@
 import { X } from 'lucide-react'
 
 interface ResultsModalProps {
-  results: { score: number; prediction: number }
+  results: { score: number; prediction: number } | null
   onClose: () => void
   onRetake: () => void
+  isSubmitting?: boolean
 }
 
-export default function ResultsModal({ results, onClose, onRetake }: ResultsModalProps) {
+export default function ResultsModal({ results, onClose, onRetake, isSubmitting = false }: ResultsModalProps) {
+  if (isSubmitting) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-8">
+          <div className="flex flex-col items-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mb-4"></div>
+            <h2 className="text-xl font-semibold text-gray-700">Analyzing Results...</h2>
+            <p className="text-gray-500 mt-2 text-center">
+              Please wait while we process your answers and analyze the data.
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!results) return null;
 
   console.log("results are: ", results)
   return (

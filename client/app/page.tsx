@@ -28,6 +28,7 @@ export default function Home() {
   const [showResults, setShowResults] = useState(false)
   const [results, setResults] = useState<{ score: number; prediction: number } | null>(null)
   const [isWebcamEnabled, setIsWebcamEnabled] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const startQuiz = () => {
     setQuizStarted(true)
@@ -52,29 +53,33 @@ export default function Home() {
   }
 
   const submitQuiz = async () => {
-    const requestBody = {
-      features,
-      userAnswers,
-    };
+    setIsSubmitting(true)
+    try {
+      const requestBody = {
+        features,
+        userAnswers,
+      };
 
-    // Log the body to the console
-    console.log('Request Body:', JSON.stringify(requestBody, null, 2));
+      console.log('Request Body:', JSON.stringify(requestBody, null, 2));
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analyze`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ features, userAnswers }),
-    })
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analyze`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ features, userAnswers }),
+      })
 
-    if (response.ok) {
-      const data = await response.json()
-      console.log("data is: ", data)
-      setResults(data)
-      setShowResults(true)
-    } else {
-      console.error('Failed to analyze quiz results')
+      if (response.ok) {
+        const data = await response.json()
+        console.log("data is: ", data)
+        setResults(data)
+        setShowResults(true)
+      } else {
+        console.error('Failed to analyze quiz results')
+      }
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -137,6 +142,7 @@ export default function Home() {
                 goToPreviousQuestion={goToPreviousQuestion}
                 goToNextQuestion={goToNextQuestion}
                 submitQuiz={submitQuiz}
+                isSubmitting={isSubmitting}
               />
             </>
           )}
