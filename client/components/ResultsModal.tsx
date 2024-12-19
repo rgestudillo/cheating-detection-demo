@@ -21,7 +21,7 @@ export default function ResultsModal({ results, onClose, onRetake }: ResultsModa
         <div className="p-6">
           <div className="mb-6">
             <p className="text-lg font-semibold mb-2">Your score:</p>
-            <p className="text-3xl font-bold text-blue-600">{results.score} / 5</p>
+            <p className="text-3xl font-bold text-blue-600">{results.score} / 25</p>
           </div>
           <div className="text-center">
             <div className={`inline-block px-6 py-3 rounded-lg ${results.prediction === 1
