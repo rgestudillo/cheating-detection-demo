@@ -63,7 +63,7 @@ const WebcamComponent = ({ onWebcamStatus, onProximityUpdate }: WebcamComponentP
             console.log('Loading face detection model...')
             const model = faceDetection.SupportedModels.MediaPipeFaceDetector
             const detectorConfig = {
-                runtime: 'tfjs',
+                runtime: 'tfjs' as const,
                 maxFaces: 10,
             }
             const detector = await faceDetection.createDetector(model, detectorConfig)
