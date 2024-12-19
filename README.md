@@ -31,17 +31,6 @@ A modern web application that combines an interactive quiz interface with real-t
 - NumPy
 - Pydantic
 
-## Project Structure
-
-├── client/
-│   ├── app/
-│   │   └── page.tsx          # Main quiz interface
-│   ├── components/           # React components
-│   ├── data/                 # Quiz questions and data
-│   └── models/               # TypeScript interfaces
-│
-└── server/
-    └── main.py              # FastAPI backend with ML logic
 
 ## About
 
