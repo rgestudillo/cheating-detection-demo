@@ -4,6 +4,7 @@ interface QuizNavigationProps {
   goToPreviousQuestion: () => void
   goToNextQuestion: () => void
   submitQuiz: () => void
+  isSubmitting: boolean
 }
 
 export default function QuizNavigation({
@@ -11,27 +12,38 @@ export default function QuizNavigation({
   totalQuestions,
   goToPreviousQuestion,
   goToNextQuestion,
-  submitQuiz
+  submitQuiz,
+  isSubmitting
 }: QuizNavigationProps) {
   return (
-    <div className="flex justify-between items-center mt-8">
+    <div className="flex justify-between items-center mt-6">
       <button
         onClick={goToPreviousQuestion}
-        disabled={currentQuestion === 0}
-        className={`btn ${currentQuestion === 0 ? 'btn-disabled' : 'btn-primary'}`}
+        disabled={currentQuestion === 0 || isSubmitting}
+        className="btn btn-secondary"
       >
         Previous
       </button>
+
       {currentQuestion === totalQuestions - 1 ? (
         <button
           onClick={submitQuiz}
-          className="btn btn-secondary"
+          disabled={isSubmitting}
+          className="btn btn-primary"
         >
-          Submit Quiz
+          {isSubmitting ? (
+            <span className="flex items-center">
+              <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+              Submitting...
+            </span>
+          ) : (
+            'Submit Quiz'
+          )}
         </button>
       ) : (
         <button
           onClick={goToNextQuestion}
+          disabled={isSubmitting}
           className="btn btn-primary"
         >
           Next
