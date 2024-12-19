@@ -1,4 +1,4 @@
-import { Features } from '../../models/Features'
+import { Features } from '../models/Features'
 import { Monitor, Clock, Keyboard, MousePointer, Users, Coffee, Minimize2 } from 'lucide-react'
 
 interface FeatureDisplayProps {

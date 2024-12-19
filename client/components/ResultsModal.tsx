@@ -1,11 +1,14 @@
 import { X } from 'lucide-react'
 
 interface ResultsModalProps {
-  results: { score: number; cheatingProbability: number }
+  results: { score: number; prediction: number }
   onClose: () => void
+  onRetake: () => void
 }
 
-export default function ResultsModal({ results, onClose }: ResultsModalProps) {
+export default function ResultsModal({ results, onClose, onRetake }: ResultsModalProps) {
+
+  console.log("results are: ", results)
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
@@ -20,23 +23,27 @@ export default function ResultsModal({ results, onClose }: ResultsModalProps) {
             <p className="text-lg font-semibold mb-2">Your score:</p>
             <p className="text-3xl font-bold text-blue-600">{results.score} / 5</p>
           </div>
-          <div>
-            <p className="text-lg font-semibold mb-2">Integrity analysis:</p>
-            <div className="bg-gray-100 rounded-full h-4 w-full">
-              <div 
-                className="bg-green-500 h-4 rounded-full" 
-                style={{ width: `${(1 - results.cheatingProbability) * 100}%` }}
-              ></div>
+          <div className="text-center">
+            <div className={`inline-block px-6 py-3 rounded-lg ${results.prediction === 1
+              ? 'bg-red-100 text-red-700 border-2 border-red-500'
+              : 'bg-green-100 text-green-700 border-2 border-green-500'
+              }`}>
+              <p className="text-lg font-bold">
+                {results.prediction === 1 ? 'Likely Cheating' : 'No Cheating'}
+              </p>
             </div>
-            <p className="mt-2 text-sm text-gray-600">
-              Integrity score: {((1 - results.cheatingProbability) * 100).toFixed(2)}%
-            </p>
           </div>
         </div>
-        <div className="bg-gray-50 px-6 py-4 rounded-b-lg">
+        <div className="bg-gray-50 px-6 py-4 rounded-b-lg space-y-3">
+          <button
+            onClick={onRetake}
+            className="btn btn-primary w-full mb-2"
+          >
+            Take Exam Again
+          </button>
           <button
             onClick={onClose}
-            className="btn btn-primary w-full"
+            className="btn btn-secondary w-full"
           >
             Close
           </button>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Features } from '../../models/Features'
+import { Features } from '../models/Features'
 
 interface FeatureTrackerProps {
   features: Features

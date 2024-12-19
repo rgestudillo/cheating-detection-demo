@@ -25,7 +25,7 @@ export default function Home() {
     windowSwitches: 0
   })
   const [showResults, setShowResults] = useState(false)
-  const [results, setResults] = useState<{ score: number; cheatingProbability: number } | null>(null)
+  const [results, setResults] = useState<{ score: number; prediction: number } | null>(null)
 
   const startQuiz = () => {
     setQuizStarted(true)
@@ -50,7 +50,15 @@ export default function Home() {
   }
 
   const submitQuiz = async () => {
-    const response = await fetch('/api/analyze', {
+    const requestBody = {
+      features,
+      userAnswers,
+    };
+
+    // Log the body to the console
+    console.log('Request Body:', JSON.stringify(requestBody, null, 2));
+
+    const response = await fetch('http://127.0.0.1:8000/analyze', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,11 +68,29 @@ export default function Home() {
 
     if (response.ok) {
       const data = await response.json()
+      console.log("data is: ", data)
       setResults(data)
       setShowResults(true)
     } else {
       console.error('Failed to analyze quiz results')
     }
+  }
+
+  const handleRetake = () => {
+    setQuizStarted(false)
+    setCurrentQuestion(0)
+    setUserAnswers(new Array(quizData.length).fill(''))
+    setFeatures({
+      browserTabsOpen: 1,
+      timePerQuestion: 0,
+      keyboardActivity: 0,
+      mouseMovements: 0,
+      proximityAlerts: 0,
+      inactivityPeriods: 0,
+      windowSwitches: 0
+    })
+    setShowResults(false)
+    setResults(null)
   }
 
   return (
@@ -106,7 +132,11 @@ export default function Home() {
             </>
           )}
           {showResults && results && (
-            <ResultsModal results={results} onClose={() => setShowResults(false)} />
+            <ResultsModal
+              results={results}
+              onClose={() => setShowResults(false)}
+              onRetake={handleRetake}
+            />
           )}
         </div>
       </main>

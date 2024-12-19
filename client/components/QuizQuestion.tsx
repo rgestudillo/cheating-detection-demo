@@ -1,4 +1,4 @@
-import { MultipleChoice } from '../../models/MultipleChoice'
+import { MultipleChoice } from '../models/MultipleChoice'
 
 interface QuizQuestionProps {
   question: MultipleChoice
@@ -8,12 +8,12 @@ interface QuizQuestionProps {
   totalQuestions: number
 }
 
-export default function QuizQuestion({ 
-  question, 
-  userAnswer, 
-  onAnswer, 
-  currentQuestion, 
-  totalQuestions 
+export default function QuizQuestion({
+  question,
+  userAnswer,
+  onAnswer,
+  currentQuestion,
+  totalQuestions
 }: QuizQuestionProps) {
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mb-8">
