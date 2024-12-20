@@ -1,6 +1,7 @@
 # Smart Quiz System with Cheating Detection
 
 A modern web application that combines an interactive quiz interface with real-time behavior monitoring and machine learning-based cheating detection.
+![alt text](image.png)
 
 ## Features
 
